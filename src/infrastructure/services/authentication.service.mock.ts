@@ -1,9 +1,8 @@
-import { v4 as uuid } from 'uuid';
-
-import { IAuthenticationService } from '@/src/application/services/authentication.service.interface';
-import { Session, sessionSchema } from '@/src/entities/models/session';
 import { User } from '@/src/entities/models/user';
+import { Session, sessionSchema } from '@/src/entities/models/session';
+import { IAuthenticationService } from '@/src/application/services/authentication.service.interface';
 import { AUTH_SESSION_UPDATE_AGE, GENERATE_USER_IMAGE } from '@/config';
+import { UnauthenticatedError } from '@/src/entities/errors/auth';
 
 export class MockAuthenticationService implements IAuthenticationService {
   private _sessions: Record<string, { session: Session; user: User }>;
@@ -13,16 +12,16 @@ export class MockAuthenticationService implements IAuthenticationService {
   }
 
   async signUpWithEmail(
+    name: string,
     email: string,
     password: string,
-    name: string,
     image?: string | undefined,
   ) {
     const user: User = {
-      id: uuid(),
+      id: 'new-mock-user-id-1',
       email,
       emailVerified: false,
-      name: name,
+      name: 'new',
       image: image || GENERATE_USER_IMAGE,
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -30,12 +29,18 @@ export class MockAuthenticationService implements IAuthenticationService {
 
     const mockSession: {
       id: string;
+      token: string;
       userId: string;
       expiresAt: Date;
+      createdAt: Date;
+      updatedAt: Date;
     } = {
-      id: uuid(),
+      token: 'new-mock-session-token',
+      id: 'new-mock-session-id',
       userId: user.id,
       expiresAt: new Date(AUTH_SESSION_UPDATE_AGE * 1000), // Converted to miliseconds
+      createdAt: new Date(), // Converted to miliseconds
+      updatedAt: new Date(), // Converted to miliseconds
     };
     const session = sessionSchema.parse(mockSession);
 
@@ -49,10 +54,10 @@ export class MockAuthenticationService implements IAuthenticationService {
     password: string,
   ) {
     const user: User = {
-      id: uuid(),
+      id: 'mock-user-id-1',
       email,
       emailVerified: false,
-      name: 'mockUser',
+      name: 'one',
       image: GENERATE_USER_IMAGE,
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -60,12 +65,18 @@ export class MockAuthenticationService implements IAuthenticationService {
 
     const mockSession: {
       id: string;
+      token: string;
       userId: string;
       expiresAt: Date;
+      createdAt: Date;
+      updatedAt: Date;
     } = {
-      id: uuid(),
+      token: 'mock-session-token',
+      id: 'mock-session-id',
       userId: user.id,
       expiresAt: new Date(AUTH_SESSION_UPDATE_AGE * 1000), // Converted to miliseconds
+      createdAt: new Date(), // Converted to miliseconds
+      updatedAt: new Date(), // Converted to miliseconds
     };
     const session = sessionSchema.parse(mockSession);
 

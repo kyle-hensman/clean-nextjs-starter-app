@@ -40,7 +40,8 @@ export class MockTodosRepository implements ITodosRepository {
   }
 
   async getArchivedTodosForUser(userId: string): Promise<ArchivedTodo[]> {
-    return this._archivedTodos;
+    const usersArchivedTodos = this._archivedTodos.filter((t) => {return t.userId === userId;});
+    return usersArchivedTodos;
   }
 
   async updateTodo(id: string, input: Partial<TodoInsert>): Promise<Todo> {
@@ -60,6 +61,17 @@ export class MockTodosRepository implements ITodosRepository {
       this._todos = this._todos.filter(Boolean);
     }
   }
+
+
+  async softDeleteTodo(id: string): Promise<void> {
+    const existingIndex = this._todos.findIndex((t) => {return t.id === id;});
+    const updated = {
+      ...this._todos[existingIndex],
+      deleted: true,
+    };
+    this._todos[existingIndex] = updated;
+  }
+
 
   async archiveTodo(id: string, metadata?: Record<string, unknown>): Promise<ArchivedTodo> {
     const existingIndex = this._todos.findIndex((t) => {return t.id === id;});

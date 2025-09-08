@@ -59,7 +59,7 @@ export function ArchivedTodos({ todos }: { todos: ArchivedTodo[] }) {
                 <div className='flex-1 text-muted-foreground italic'>
                   {todo.title}
                 </div>
-                 <div className='space-x-2'>
+                <div className='space-x-2'>
                   <Button
                     size="sm"
                     variant="secondary"

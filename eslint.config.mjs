@@ -1,6 +1,7 @@
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { FlatCompat } from '@eslint/eslintrc';
+import stylistic from '@stylistic/eslint-plugin';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -25,14 +26,20 @@ const eslintConfig = [
     ],
   },
   {
+    plugins: {
+      '@stylistic': stylistic
+    },
     rules: {
       'quotes': ['warn', 'single'],
       'semi': ['warn', 'always'],
       'arrow-body-style': ['warn', 'always'],
       'camelcase': ['warn'],
-      'capitalized-comments': ['warn'],
+      // 'capitalized-comments': ['warn'],
       'default-case': ['error'],
       'dot-notation': ['warn'],
+      '@stylistic/indent': ['error', 2],
+      'no-duplicate-imports': ['error'],
+      'import/first': ['warn'],
     }
   }
 ];

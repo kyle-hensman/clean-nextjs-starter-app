@@ -59,7 +59,7 @@ async function getDeletedTodos(userId: string) {
 export default async function DashboardPage({
   searchParams
 }: {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>
 }) {
   const session = await getUserSession();
   if (!session || !session.session || !session.user) {
@@ -69,14 +69,16 @@ export default async function DashboardPage({
   const todos = await getTodos(session.user.id) || [];
   const archivedTodos = await getArchivedTodos(session.user.id) || [];
   const deletedTodos = await getDeletedTodos(session.user.id) || [];
-  
-  const page = (await searchParams).page;
+
+  const page = searchParams && (await searchParams).page;
 
   return (
     <PageWrapper contained centered>
       <Card className="w-full max-w-lg">
         <CardHeader className="flex flex-row items-center">
-          <CardTitle className="flex-1">TODOs</CardTitle>
+          <CardTitle className="flex-1">
+            <h1>TODOs</h1>
+          </CardTitle>
           <UserMenu user={session.user} />
         </CardHeader>
         <Separator />

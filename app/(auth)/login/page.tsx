@@ -40,7 +40,9 @@ export default function LoginPage() {
     <PageWrapper contained centered>
       <Card className="w-full max-w-lg">
         <CardHeader>
-          <CardTitle>Log in</CardTitle>
+          <CardTitle>
+            <h1>Log in</h1>
+          </CardTitle>
           <CardDescription>
             Enter your email below to login to your account
           </CardDescription>

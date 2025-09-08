@@ -5,7 +5,7 @@
 */
 
 import { v4 as generateUuid } from 'uuid';
-import { pgTable, varchar, boolean, text, timestamp, json } from 'drizzle-orm/pg-core';
+import { boolean, json, pgTable, text, timestamp, varchar } from 'drizzle-orm/pg-core';
 
 // User table definition
 export const users = pgTable('user', {

@@ -34,7 +34,7 @@ export const bulkUpdateController =
     try {
       await Promise.all(
         dirty.map((t) =>
-          {return toggleTodoUseCase({ todoId: t });}
+        {return toggleTodoUseCase({ todoId: t });}
         )
       );
     } catch (error) {
@@ -44,7 +44,7 @@ export const bulkUpdateController =
     try {
       await Promise.all(
         deleted.map((t) =>
-          {return softDeleteTodoUseCase({ todoId: t });}
+        {return softDeleteTodoUseCase({ todoId: t });}
         )
       );
     } catch (error) {
@@ -54,7 +54,7 @@ export const bulkUpdateController =
     try {
       await Promise.all(
         archived.map((t) =>
-          {return archiveTodoUseCase({ todoId: t });}
+        {return archiveTodoUseCase({ todoId: t });}
         )
       );
     } catch (error) {
@@ -64,7 +64,7 @@ export const bulkUpdateController =
     try {
       await Promise.all(
         unarchived.map((t) =>
-          {return unarchiveTodoUseCase({ todoId: t });}
+        {return unarchiveTodoUseCase({ todoId: t });}
         )
       );
     } catch (error) {

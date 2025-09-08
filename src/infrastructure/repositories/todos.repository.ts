@@ -3,7 +3,7 @@ import { and, eq } from 'drizzle-orm';
 import { db } from '@/drizzle';
 import { archivedTodos, todos } from '@/drizzle/schema';
 import { DatabaseOperationError, NotFoundError } from '@/src/entities/errors/common';
-import { TodoInsert, Todo } from '@/src/entities/models/todo';
+import { Todo, TodoInsert } from '@/src/entities/models/todo';
 import { ArchivedTodo } from '@/src/entities/models/archived-todo';
 import { ITodosRepository } from '@/src/application/repositories/todos.repository.interface';
 

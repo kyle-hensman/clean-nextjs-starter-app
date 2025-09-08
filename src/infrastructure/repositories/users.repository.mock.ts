@@ -7,7 +7,7 @@ export class MockUsersRepository implements IUsersRepository {
   constructor() {
     this._users = [
       {
-        id: '1',
+        id: 'mock-user-id-1',
         name: 'one',
         email: 'one@gmail.com',
         emailVerified: false,
@@ -16,7 +16,7 @@ export class MockUsersRepository implements IUsersRepository {
         updatedAt: new Date(),
       },
       {
-        id: '2',
+        id: 'mock-user-id-2',
         name: 'two',
         email: 'two@gmail.com',
         emailVerified: false,
@@ -25,7 +25,7 @@ export class MockUsersRepository implements IUsersRepository {
         updatedAt: new Date(),
       },
       {
-        id: '3',
+        id: 'mock-user-id-3',
         name: 'three',
         email: 'three@gmail.com',
         emailVerified: false,

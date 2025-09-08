@@ -48,7 +48,9 @@ export default function SignupPage() {
     <PageWrapper contained centered>
       <Card className="w-full max-w-lg">
         <CardHeader>
-          <CardTitle>Sign up</CardTitle>
+          <CardTitle>
+            <h1>Sign up</h1>
+          </CardTitle>
           <CardDescription>
             Enter your information to create an account
           </CardDescription>

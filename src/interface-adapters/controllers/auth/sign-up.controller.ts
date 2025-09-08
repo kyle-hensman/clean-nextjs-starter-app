@@ -35,6 +35,7 @@ export const signUpController =
     input: Partial<z.infer<typeof inputSchema>>,
   ): Promise<User> => {
     const { data, error: inputParseError } = inputSchema.safeParse(input);
+    console.log(input);
 
     if (inputParseError) {
       throw new InputParseError('Invalid data', { cause: inputParseError });

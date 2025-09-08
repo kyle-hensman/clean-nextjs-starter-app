@@ -213,28 +213,28 @@ export function Todos({ todos }: { todos: Todo[] }) {
                 {todo.title}
               </label>
               {/* {bulkMode && ( */}
-                <>
-                  <Button
-                    size="sm"
-                    variant="secondary"
-                    className="p-3"
-                    disabled={loading}
-                    // OnClick={() => markForArchive(todo.id)}
-                    onClick={() => {return handleTodoArchive(todo.id);}}
-                  >
-                    <Archive size={16} />
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="destructive"
-                    className="p-3"
-                    disabled={loading}
-                    // OnClick={() => markForDeletion(todo.id)}
-                    onClick={() => {return handleTodoDelete(todo.id);}}
-                  >
-                    <Trash size={16} />
-                  </Button>
-                </>
+              <>
+                <Button
+                  size="sm"
+                  variant="secondary"
+                  className="p-3"
+                  disabled={loading}
+                  // OnClick={() => markForArchive(todo.id)}
+                  onClick={() => {return handleTodoArchive(todo.id);}}
+                >
+                  <Archive size={16} />
+                </Button>
+                <Button
+                  size="sm"
+                  variant="destructive"
+                  className="p-3"
+                  disabled={loading}
+                  // OnClick={() => markForDeletion(todo.id)}
+                  onClick={() => {return handleTodoDelete(todo.id);}}
+                >
+                  <Trash size={16} />
+                </Button>
+              </>
               {/* )} */}
             </li>
           );})

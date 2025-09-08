@@ -15,7 +15,7 @@ import { signOut } from '../(auth)/actions';
 export function UserMenu({
   user,
 }: {
-  user: User,
+  user?: User | null | undefined,
 }) {
   return (
     <DropdownMenu>
