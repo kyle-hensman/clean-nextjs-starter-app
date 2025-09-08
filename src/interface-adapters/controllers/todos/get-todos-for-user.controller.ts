@@ -1,5 +1,5 @@
 import { Todo } from '@/src/entities/models/todo';
-import { IGetTodosUseCase } from '@/src/application/use-cases/todos/get-todos.use-case';
+import { IGetTodosForUserUseCase } from '@/src/application/use-cases/todos/get-todos-for-user.use-case';
 
 function presenter(
   todos: Todo[],
@@ -13,15 +13,16 @@ function presenter(
   }));
 }
 
-export const getTodosController =
+export const getTodosForUserController =
   (
-    getTodosUseCase: IGetTodosUseCase,
+    getTodosForUserUseCase: IGetTodosForUserUseCase,
   ) =>
   async (
+    userId: string,
   ): Promise<ReturnType<typeof presenter>> => {
-    const todos = await getTodosUseCase();
+    const todos = await getTodosForUserUseCase(userId);
 
     return presenter(todos ?? []);
   };
 
-export type IGetTodosController = ReturnType<typeof getTodosController>;
+export type IGetTodosForUserController = ReturnType<typeof getTodosForUserController>;

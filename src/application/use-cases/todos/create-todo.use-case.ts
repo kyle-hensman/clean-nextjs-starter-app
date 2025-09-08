@@ -3,7 +3,7 @@ import type { Todo } from '@/src/entities/models/todo';
 import type { ITodosRepository } from '@/src/application/repositories/todos.repository.interface';
 
 export const createTodoUseCase = (todosRepository: ITodosRepository) =>
-  async ( input: { title: string; } ): Promise<Todo> => {
+  async ( input: { title: string; }, userId: string ): Promise<Todo> => {
     if (input.title.length < 4) {
       throw new InputParseError('Todo must be at least 4 characters');
     }
@@ -11,9 +11,13 @@ export const createTodoUseCase = (todosRepository: ITodosRepository) =>
     const newTodo = await todosRepository.createTodo(
       {
         title: input.title,
+        userId: userId,
         completed: false,
+        deleted: false,
+        archived: false,
         createdAt: new Date(),
         updatedAt: new Date(),
+        deletedAt: null,
       },
     );
 

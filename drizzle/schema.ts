@@ -5,7 +5,7 @@
 */
 
 import { v4 as generateUuid } from 'uuid';
-import { pgTable, varchar, boolean, text, timestamp } from "drizzle-orm/pg-core";
+import { pgTable, varchar, boolean, text, timestamp, json } from "drizzle-orm/pg-core";
 
 // User table definition
 export const users = pgTable("user", {
@@ -61,7 +61,22 @@ export const verifications = pgTable("verification", {
 export const todos = pgTable('todos', {
   id: text('id').primaryKey().$defaultFn(() => generateUuid()),
   title: varchar('title').notNull(),
+  userId: text("userId").notNull().references(() => users.id, { onDelete: 'cascade' }),
   completed: boolean('completed').notNull().default(false),
+  deleted: boolean('deleted').notNull().default(false),
+  archived: boolean('archived').notNull().default(false),
   createdAt: timestamp("createdAt").$defaultFn(() => /* @__PURE__ */ new Date()).notNull(),
   updatedAt: timestamp("updatedAt").$defaultFn(() => /* @__PURE__ */ new Date()).notNull(),
+  deletedAt: timestamp("deletedAt"),
+});
+
+// Archived Todos objects created by users
+export const archivedTodos = pgTable('archived_todos', {
+  id: text('id').primaryKey().$defaultFn(() => generateUuid()),
+  todoId: text("todoId").notNull().references(() => todos.id, { onDelete: 'cascade' }),
+  title: varchar('title').notNull(),
+  userId: text("userId").notNull().references(() => users.id, { onDelete: 'cascade' }),
+  completed: boolean('completed').notNull(),
+  archivedAt: timestamp("archivedAt").$defaultFn(() => /* @__PURE__ */ new Date()).notNull(),
+  metadata: json('metadata'),
 });

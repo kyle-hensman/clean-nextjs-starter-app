@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 import { Todo } from '@/src/entities/models/todo';
 import { InputParseError } from '@/src/entities/errors/common';
-import { IToggleTodoUseCase } from '@/src/application/use-cases/todos/toggle-todo.use-case';
+import { IDeleteTodoUseCase } from '@/src/application/use-cases/todos/delete-todo.use-case';
 
 function presenter(
   todo: Todo,
@@ -10,7 +10,7 @@ function presenter(
   return () => ({
     id: todo.id,
     todo: todo.title,
-    deleted: todo.deleted,
+    completed: todo.completed,
     archived: todo.archived,
     createdAt: todo.createdAt,
   });
@@ -18,9 +18,9 @@ function presenter(
 
 const inputSchema = z.object({ todoId: z.string() });
 
-export const toggleTodoController =
+export const deleteTodoController =
   (
-    toggleTodoUseCase: IToggleTodoUseCase
+    deleteTodoUseCase: IDeleteTodoUseCase
   ) =>
   async (
     input: Partial<z.infer<typeof inputSchema>>,
@@ -31,11 +31,11 @@ export const toggleTodoController =
       throw new InputParseError('Invalid data', { cause: inputParseError });
     }
 
-    const todo = await toggleTodoUseCase(
+    const todo = await deleteTodoUseCase(
       { todoId: data.todoId },
     );
 
     return presenter(todo);
   };
 
-export type IToggleTodoController = ReturnType<typeof toggleTodoController>;
+export type IDeleteTodoController = ReturnType<typeof deleteTodoController>;

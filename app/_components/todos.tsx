@@ -1,8 +1,7 @@
 'use client';
 
-
 import React, { useCallback, useState } from 'react';
-import { Loader, Trash } from 'lucide-react';
+import { Archive, Loader, Trash } from 'lucide-react';
 import { toast } from 'sonner';
 
 import { Checkbox } from './ui/checkbox';
@@ -13,76 +12,147 @@ import { cn } from './utils';
 export type Todo = { id: string; title: string; completed: boolean, createdAt: Date };
 
 export function Todos({ todos }: { todos: Todo[] }) {
-  const [bulkMode, setBulkMode] = useState<boolean>(false);
+  // const [bulkMode, setBulkMode] = useState<boolean>(false);
   const [dirty, setDirty] = useState<string[]>([]);
+  const [archived, setArchived] = useState<string[]>([]);
   const [deleted, setDeleted] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const handleToggle = useCallback(
+  // const handleToggle = useCallback(
+  //   async (id: string) => {
+  //     if (bulkMode) {
+  //       const dirtyIndex = dirty.findIndex((t) => t === id);
+  //       if (dirtyIndex > -1) {
+  //         const newDirty = Object.assign([], dirty);
+  //         newDirty.splice(dirtyIndex, 1);
+  //         setDirty(newDirty);
+  //       } else {
+  //         setDirty([...dirty, id]);
+  //       }
+  //     } else {
+  //       const res = await toggleTodo(id);
+  //       if (res) {
+  //         if (res.error) {
+  //           toast.error(res.error);
+  //         } else if (res.success) {
+  //           toast.success('Todo toggled!');
+  //         }
+  //       }
+  //     }
+  //   },
+  //   [bulkMode, dirty]
+  // );
+
+  // const markForDeletion = useCallback(
+  //   (id: string) => {
+  //     const dirtyIndex = dirty.findIndex((t) => t === id);
+  //     if (dirtyIndex > -1) {
+  //       const newDirty = Object.assign([], dirty);
+  //       newDirty.splice(dirtyIndex, 1);
+  //       setDirty(newDirty);
+  //     }
+
+  //     const deletedIndex = deleted.findIndex((t) => t === id);
+  //     if (deletedIndex === -1) {
+  //       setDeleted((d) => [...d, id]);
+  //     } else {
+  //       const newDeleted = Object.assign([], deleted);
+  //       newDeleted.splice(deletedIndex, 1);
+  //       setDeleted(newDeleted);
+  //     }
+  //   },
+  //   [deleted, dirty]
+  // );
+
+  // const markForArchive = useCallback(
+  //   (id: string) => {
+  //     const dirtyIndex = dirty.findIndex((t) => t === id);
+  //     if (dirtyIndex > -1) {
+  //       const newDirty = Object.assign([], dirty);
+  //       newDirty.splice(dirtyIndex, 1);
+  //       setDirty(newDirty);
+  //     }
+
+  //     const archivedIndex = archived.findIndex((t) => t === id);
+  //     if (archivedIndex === -1) {
+  //       setArchived((d) => [...d, id]);
+  //     } else {
+  //       const newArchived = Object.assign([], archived);
+  //       newArchived.splice(archivedIndex, 1);
+  //       setArchived(newArchived);
+  //     }
+  //   },
+  //   [archived, dirty]
+  // );
+
+  // const updateAll = async () => {
+  //   setLoading(true);
+  //   const res = await bulkUpdate(dirty, deleted, archived);
+  //   setLoading(false);
+  //   setBulkMode(false);
+  //   setDirty([]);
+  //   setDeleted([]);
+  //   setArchived([]);
+  //   if (res) {
+  //     if (res.error) {
+  //       toast.error(res.error);
+  //     } else if (res.success) {
+  //       toast.success('Bulk update completed!');
+  //     }
+  //   }
+  // };
+
+  const handleTodoToggle = useCallback(
     async (id: string) => {
-      if (bulkMode) {
-        const dirtyIndex = dirty.findIndex((t) => t === id);
-        if (dirtyIndex > -1) {
-          const newDirty = Object.assign([], dirty);
-          newDirty.splice(dirtyIndex, 1);
-          setDirty(newDirty);
-        } else {
-          setDirty([...dirty, id]);
-        }
-      } else {
-        const res = await toggleTodo(id);
-        if (res) {
-          if (res.error) {
-            toast.error(res.error);
-          } else if (res.success) {
-            toast.success('Todo toggled!');
-          }
+      const res = await toggleTodo(id);
+      if (res) {
+        if (res.error) {
+          toast.error(res.error);
+        } else if (res.success) {
+          toast.success('Todo toggled!');
         }
       }
     },
-    [bulkMode, dirty]
+    []
   );
 
-  const markForDeletion = useCallback(
-    (id: string) => {
-      const dirtyIndex = dirty.findIndex((t) => t === id);
-      if (dirtyIndex > -1) {
-        const newDirty = Object.assign([], dirty);
-        newDirty.splice(dirtyIndex, 1);
-        setDirty(newDirty);
-      }
+  const handleTodoDelete = useCallback(
+    async (id: string) => {
+      setLoading(true);
+      const res = await bulkUpdate(dirty, [...deleted, id], archived, []);
+      setLoading(false);
 
-      const deletedIndex = deleted.findIndex((t) => t === id);
-      if (deletedIndex === -1) {
-        setDeleted((d) => [...d, id]);
-      } else {
-        const newDeleted = Object.assign([], deleted);
-        newDeleted.splice(deletedIndex, 1);
-        setDeleted(newDeleted);
+      if (res) {
+        if (res.error) {
+          toast.error(res.error);
+        } else if (res.success) {
+          toast.success('Todo has been deleted!');
+        }
       }
     },
-    [deleted, dirty]
+    [dirty, deleted, archived]
   );
 
-  const updateAll = async () => {
-    setLoading(true);
-    const res = await bulkUpdate(dirty, deleted);
-    setLoading(false);
-    setBulkMode(false);
-    setDirty([]);
-    setDeleted([]);
-    if (res) {
-      if (res.error) {
-        toast.error(res.error);
-      } else if (res.success) {
-        toast.success('Bulk update completed!');
+  const handleTodoArchive = useCallback(
+    async (id: string) => {
+      setLoading(true);
+      const res = await bulkUpdate(dirty, deleted, [...archived, id], []);
+      setLoading(false);
+
+      if (res) {
+        if (res.error) {
+          toast.error(res.error);
+        } else if (res.success) {
+          toast.success('Todo has been archived!');
+        }
       }
-    }
-  };
+    },
+    [dirty, deleted, archived]
+  );
 
   return (
     <>
-      {bulkMode ? (
+      {/* {bulkMode ? (
         <div className="w-full grid grid-cols-2 gap-2">
           <Button
             disabled={loading}
@@ -90,13 +160,18 @@ export function Todos({ todos }: { todos: Todo[] }) {
           >
             {loading ? <Loader className="animate-spin" /> : 'Update all'}
           </Button>
-          <Button variant="secondary" onClick={() => setBulkMode(false)}>
+          <Button variant="secondary" onClick={() => {
+            setDirty([])
+            setDeleted([])
+            setArchived([])
+            setBulkMode(false)
+          }}>
             Cancel
           </Button>
         </div>
       ) : (
         <Button onClick={() => setBulkMode(true)}>Bulk operations</Button>
-      )}
+      )} */}
       <ul className='w-full'>
         {todos.length > 0 ? (
           todos.map((todo, i) => (
@@ -110,7 +185,8 @@ export function Todos({ todos }: { todos: Todo[] }) {
                     ? !todo.completed
                     : todo.completed
                 }
-                onCheckedChange={() => handleToggle(todo.id)}
+                // onCheckedChange={() => handleToggle(todo.id)}
+                onCheckedChange={() => handleTodoToggle(todo.id)}
                 id={`checkbox-${todo.id}`}
                 disabled={
                   deleted.findIndex((t) => t === todo.id) > -1 || loading
@@ -130,17 +206,30 @@ export function Todos({ todos }: { todos: Todo[] }) {
               >
                 {todo.title}
               </label>
-              {bulkMode && (
-                <Button
-                  size="sm"
-                  variant="destructive"
-                  className="p-3"
-                  disabled={loading}
-                  onClick={() => markForDeletion(todo.id)}
-                >
-                  <Trash size={16} />
-                </Button>
-              )}
+              {/* {bulkMode && ( */}
+                <>
+                  <Button
+                    size="sm"
+                    variant="secondary"
+                    className="p-3"
+                    disabled={loading}
+                    // onClick={() => markForArchive(todo.id)}
+                    onClick={() => handleTodoArchive(todo.id)}
+                  >
+                    <Archive size={16} />
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="destructive"
+                    className="p-3"
+                    disabled={loading}
+                    // onClick={() => markForDeletion(todo.id)}
+                    onClick={() => handleTodoDelete(todo.id)}
+                  >
+                    <Trash size={16} />
+                  </Button>
+                </>
+              {/* )} */}
             </li>
           ))
         ) : (
