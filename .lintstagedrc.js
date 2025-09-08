@@ -1,10 +1,12 @@
-import { relative } from 'path'
+import { relative } from 'path';
  
 const buildEslintCommand = (filenames) =>
   `next lint --fix --file ${filenames
     .map((f) => relative(process.cwd(), f))
     .join(' --file ')}`
  
-module.exports = {
+const lintStagedConfig = {
   '*.{js,jsx,ts,tsx}': [buildEslintCommand],
 }
+
+export default lintStagedConfig;
