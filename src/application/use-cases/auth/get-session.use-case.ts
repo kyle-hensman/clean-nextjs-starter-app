@@ -5,7 +5,7 @@ export const getSessionUseCase =
   (
     authenticationService: IAuthenticationService
   ) =>
-  async (): Promise<{
+  {return async (): Promise<{
     session: {
       id: string;
       createdAt: Date;
@@ -33,6 +33,6 @@ export const getSessionUseCase =
     }
 
     return data;
-  };
+  };};
 
 export type IGetSessionUseCase = ReturnType<typeof getSessionUseCase>;

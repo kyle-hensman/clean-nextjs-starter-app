@@ -62,7 +62,7 @@ export function DeletedTodos({ todos }: { todos: DeletedTodo[] }) {
     if (error) {
       toast.error(error);
     } else {
-      toast.success('Trash has been emptied!')
+      toast.success('Trash has been emptied!');
     }
 
     setLoading(false);
@@ -90,10 +90,10 @@ export function DeletedTodos({ todos }: { todos: DeletedTodo[] }) {
       ) : (
         <Button onClick={() => setBulkMode(true)}>Bulk operations</Button>
       )} */}
-      <Button onClick={() => handleEmptyTrash()}>Empty trash</Button>
+      <Button onClick={() => {return handleEmptyTrash();}}>Empty trash</Button>
       <ul className='w-full'>
         {todos.length > 0 ? (
-          todos.map((todo, i) => (
+          todos.map((todo, i) => {return (
             <li
               key={`todo-item-${i + 1}`}
               className="h-10 flex items-center gap-2 w-full hover:bg-muted/50 active:bg-muted rounded-sm p-1"
@@ -130,7 +130,7 @@ export function DeletedTodos({ todos }: { todos: DeletedTodo[] }) {
                 </div>
               </div>
             </li>
-          ))
+          );})
         ) : (
           <li className='flex justify-center items-center text-center min-h-[80px]'>
             <p className='text-muted-foreground italic'>No deleted todos yet.</p>
@@ -138,5 +138,5 @@ export function DeletedTodos({ todos }: { todos: DeletedTodo[] }) {
         )}
       </ul>
     </>
-  )
+  );
 }

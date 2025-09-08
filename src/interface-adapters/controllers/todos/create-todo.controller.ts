@@ -9,13 +9,13 @@ import { IAuthenticationService } from '@/src/application/services/authenticatio
 function presenter(
   todos: Todo[],
 ) {
-  return todos.map((todo) => ({
+  return todos.map((todo) => {return {
     id: todo.id,
     title: todo.title,
     userId: todo.userId,
     completed: todo.completed,
     archived: todo.archived,
-  }));
+  };});
 }
 
 const inputSchema = z.object({ title: z.string().min(1) });
@@ -25,7 +25,7 @@ export const createTodoController =
     authenticationService: IAuthenticationService,
     createTodoUseCase: ICreateTodoUseCase
   ) =>
-  async (
+  {return async (
     input: Partial<z.infer<typeof inputSchema>>,
     sessionId: string,
   ): Promise<ReturnType<typeof presenter>> => {
@@ -40,10 +40,10 @@ export const createTodoController =
       throw new InputParseError('Invalid data', { cause: inputParseError });
     }
 
-    const todosFromInput = data.title.split(',').map((t) => t.trim());
+    const todosFromInput = data.title.split(',').map((t) => {return t.trim();});
 
-    const todos = await Promise.all(todosFromInput.map((t) => createTodoUseCase({ title: t }, auth.user.id )));
+    const todos = await Promise.all(todosFromInput.map((t) => {return createTodoUseCase({ title: t }, auth.user.id );}));
     return presenter(todos ?? []);
-  };
+  };};
 
 export type ICreateTodoController = ReturnType<typeof createTodoController>;

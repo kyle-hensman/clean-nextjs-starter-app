@@ -6,7 +6,7 @@ export const toggleTodoUseCase =
   (
     todosRepository: ITodosRepository
   ) =>
-  async (
+  {return async (
     input: {
       todoId: string;
     },
@@ -26,6 +26,6 @@ export const toggleTodoUseCase =
     );
 
     return updatedTodo;
-  };
+  };};
 
 export type IToggleTodoUseCase = ReturnType<typeof toggleTodoUseCase>;

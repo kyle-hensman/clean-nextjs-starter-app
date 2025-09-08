@@ -7,13 +7,13 @@ import { IToggleTodoUseCase } from '@/src/application/use-cases/todos/toggle-tod
 function presenter(
   todo: Todo,
 ) {
-  return () => ({
+  return () => {return {
     id: todo.id,
     todo: todo.title,
     deleted: todo.deleted,
     archived: todo.archived,
     createdAt: todo.createdAt,
-  });
+  };};
 }
 
 const inputSchema = z.object({ todoId: z.string() });
@@ -22,7 +22,7 @@ export const toggleTodoController =
   (
     toggleTodoUseCase: IToggleTodoUseCase
   ) =>
-  async (
+  {return async (
     input: Partial<z.infer<typeof inputSchema>>,
   ): Promise<ReturnType<typeof presenter>> => {
     const { data, error: inputParseError } = inputSchema.safeParse(input);
@@ -36,6 +36,6 @@ export const toggleTodoController =
     );
 
     return presenter(todo);
-  };
+  };};
 
 export type IToggleTodoController = ReturnType<typeof toggleTodoController>;

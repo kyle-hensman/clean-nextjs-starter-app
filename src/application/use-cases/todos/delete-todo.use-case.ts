@@ -3,7 +3,7 @@ import type { Todo } from '@/src/entities/models/todo';
 import type { ITodosRepository } from '@/src/application/repositories/todos.repository.interface';
 
 export const deleteTodoUseCase = (todosRepository: ITodosRepository) =>
-  async ( input: { todoId: string; } ): Promise<Todo> => {
+  {return async ( input: { todoId: string; } ): Promise<Todo> => {
     const todo = await todosRepository.getTodo(input.todoId);
     
     if (input.todoId.length < 4) {
@@ -17,6 +17,6 @@ export const deleteTodoUseCase = (todosRepository: ITodosRepository) =>
     await todosRepository.deleteTodo(input.todoId);
 
     return todo;
-  };
+  };};
 
 export type IDeleteTodoUseCase = ReturnType<typeof deleteTodoUseCase>;

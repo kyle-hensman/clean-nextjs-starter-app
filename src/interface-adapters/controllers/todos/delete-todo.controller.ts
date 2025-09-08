@@ -7,13 +7,13 @@ import { IDeleteTodoUseCase } from '@/src/application/use-cases/todos/delete-tod
 function presenter(
   todo: Todo,
 ) {
-  return () => ({
+  return () => {return {
     id: todo.id,
     todo: todo.title,
     completed: todo.completed,
     archived: todo.archived,
     createdAt: todo.createdAt,
-  });
+  };};
 }
 
 const inputSchema = z.object({ todoId: z.string() });
@@ -22,7 +22,7 @@ export const deleteTodoController =
   (
     deleteTodoUseCase: IDeleteTodoUseCase
   ) =>
-  async (
+  {return async (
     input: Partial<z.infer<typeof inputSchema>>,
   ): Promise<ReturnType<typeof presenter>> => {
     const { data, error: inputParseError } = inputSchema.safeParse(input);
@@ -36,6 +36,6 @@ export const deleteTodoController =
     );
 
     return presenter(todo);
-  };
+  };};
 
 export type IDeleteTodoController = ReturnType<typeof deleteTodoController>;

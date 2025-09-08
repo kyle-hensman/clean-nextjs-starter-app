@@ -20,7 +20,7 @@ export const bulkUpdateController =
     archiveTodoUseCase: IArchiveTodoUseCase,
     unarchiveTodoUseCase: IUnarchiveTodoUseCase,
   ) =>
-  async (
+  {return async (
     input: z.infer<typeof inputSchema>,
   ): Promise<void> => {
     const { data, error: inputParseError } = inputSchema.safeParse(input);
@@ -34,7 +34,7 @@ export const bulkUpdateController =
     try {
       await Promise.all(
         dirty.map((t) =>
-          toggleTodoUseCase({ todoId: t })
+          {return toggleTodoUseCase({ todoId: t });}
         )
       );
     } catch (error) {
@@ -44,7 +44,7 @@ export const bulkUpdateController =
     try {
       await Promise.all(
         deleted.map((t) =>
-          softDeleteTodoUseCase({ todoId: t })
+          {return softDeleteTodoUseCase({ todoId: t });}
         )
       );
     } catch (error) {
@@ -54,7 +54,7 @@ export const bulkUpdateController =
     try {
       await Promise.all(
         archived.map((t) =>
-          archiveTodoUseCase({ todoId: t })
+          {return archiveTodoUseCase({ todoId: t });}
         )
       );
     } catch (error) {
@@ -64,12 +64,12 @@ export const bulkUpdateController =
     try {
       await Promise.all(
         unarchived.map((t) =>
-          unarchiveTodoUseCase({ todoId: t })
+          {return unarchiveTodoUseCase({ todoId: t });}
         )
       );
     } catch (error) {
       console.error(error);
     }
-  };
+  };};
 
 export type IBulkUpdateController = ReturnType<typeof bulkUpdateController>;

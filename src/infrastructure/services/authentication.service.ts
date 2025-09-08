@@ -1,7 +1,7 @@
-import { headers } from "next/headers";
-import { betterAuth } from "better-auth";
-import { drizzleAdapter } from "better-auth/adapters/drizzle";
-import { nextCookies } from "better-auth/next-js";
+import { headers } from 'next/headers';
+import { betterAuth } from 'better-auth';
+import { drizzleAdapter } from 'better-auth/adapters/drizzle';
+import { nextCookies } from 'better-auth/next-js';
 
 import { db } from '@/drizzle';
 import { IAuthenticationService } from '@/src/application/services/authentication.service.interface';
@@ -9,7 +9,7 @@ import { AUTH_SESSION_EXPIRES_IN, AUTH_SESSION_UPDATE_AGE, GENERATE_USER_IMAGE }
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
-    provider: "pg",
+    provider: 'pg',
     usePlural: true,
   }),
   session: {
@@ -18,7 +18,7 @@ export const auth = betterAuth({
   },
   emailAndPassword: {
     enabled: true,
-    // autoSignIn: false // defaults to true
+    // AutoSignIn: false // defaults to true
   },
   plugins: [nextCookies()]
 });
@@ -67,7 +67,7 @@ export class AuthenticationService implements IAuthenticationService {
         email,
         password,
         callbackURL: '/dashboard',
-        rememberMe: false, // defaults to true
+        rememberMe: false, // Defaults to true
       }
     });
 
@@ -82,7 +82,7 @@ export class AuthenticationService implements IAuthenticationService {
   async signOut() {
     await this._auth.api.signOut({
       headers: await headers(),
-    })
+    });
   }
 
   async getSession() {

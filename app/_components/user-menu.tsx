@@ -22,7 +22,7 @@ export function UserMenu({
       <DropdownMenuTrigger>
         <Avatar>
           <Image
-            src={user?.image || ""}
+            src={user?.image || ''}
             alt="user image"
             height={100}
             width={100}

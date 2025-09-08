@@ -13,7 +13,7 @@ export const unarchiveTodoController =
     authenticationService: IAuthenticationService,
     unarchiveTodoUseCase: IArchiveTodoUseCase,
   ) =>
-  async (
+  {return async (
     input: Partial<z.infer<typeof inputSchema>>,
     sessionId: string,
   ): Promise<ArchivedTodo> => {
@@ -30,6 +30,6 @@ export const unarchiveTodoController =
 
     const unarchivedTodo = await unarchiveTodoUseCase({ todoId: data.todoId }); 
     return unarchivedTodo;
-  };
+  };};
 
 export type IUnarchiveTodoController = ReturnType<typeof unarchiveTodoController>;

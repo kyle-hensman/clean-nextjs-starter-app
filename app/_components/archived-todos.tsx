@@ -48,7 +48,7 @@ export function ArchivedTodos({ todos }: { todos: ArchivedTodo[] }) {
     <>
       <ul className='w-full'>
         {todos.length > 0 ? (
-          todos.map((todo, i) => (
+          todos.map((todo, i) => {return (
             <li
               key={`todo-item-${i + 1}`}
               className="h-10 flex items-center gap-2 w-full hover:bg-muted/50 active:bg-muted rounded-sm p-1"
@@ -85,7 +85,7 @@ export function ArchivedTodos({ todos }: { todos: ArchivedTodo[] }) {
                 </div>
               </div>
             </li>
-          ))
+          );})
         ) : (
           <li className='flex justify-center items-center text-center min-h-[80px]'>
             <p className='text-muted-foreground italic'>No archived todos.</p>
@@ -93,5 +93,5 @@ export function ArchivedTodos({ todos }: { todos: ArchivedTodo[] }) {
         )}
       </ul>
     </>
-  )
+  );
 }

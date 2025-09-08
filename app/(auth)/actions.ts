@@ -13,7 +13,7 @@ export async function signUp(formData: FormData) {
   const name = formData.get('name')?.toString();
   const email = formData.get('email')?.toString();
   const password = formData.get('password')?.toString();
-  const confirmPassword = formData.get('confirm_password')?.toString();
+  const confirmPassword = formData.get('confirmPassword')?.toString();
 
   try {
     const signUpController = getInjection('ISignUpController');
@@ -21,7 +21,7 @@ export async function signUp(formData: FormData) {
       name,
       email,
       password,
-      confirm_password: confirmPassword,
+      confirmPassword,
     });
   } catch (error) {
     if (error instanceof InputParseError) {

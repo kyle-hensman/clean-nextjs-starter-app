@@ -1,4 +1,4 @@
-import { User } from "@/src/entities/models/user"
+import { User } from '@/src/entities/models/user';
 
 export interface IAuthenticationService {
   signUpWithEmail(

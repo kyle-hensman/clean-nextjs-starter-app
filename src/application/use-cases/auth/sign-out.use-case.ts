@@ -4,8 +4,8 @@ export const signOutUseCase =
   (
     authenticationService: IAuthenticationService
   ) =>
-  async (): Promise<void> => {
+  {return async (): Promise<void> => {
     await authenticationService.signOut();
-  };
+  };};
 
 export type ISignOutUseCase = ReturnType<typeof signOutUseCase>;

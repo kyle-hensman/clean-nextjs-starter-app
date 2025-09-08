@@ -8,7 +8,7 @@ export const signInUseCase =
     usersRepository: IUsersRepository,
     authenticationService: IAuthenticationService
   ) =>
-  async (input: {
+  {return async (input: {
     email: string;
     password: string;
   }): Promise<{ user: User }> => {
@@ -31,7 +31,7 @@ export const signInUseCase =
 
     return {
       user,
-    }
-  };
+    };
+  };};
 
 export type ISignInUseCase = ReturnType<typeof signInUseCase>;

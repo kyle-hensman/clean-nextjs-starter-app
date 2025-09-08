@@ -37,12 +37,12 @@ export class MockUsersRepository implements IUsersRepository {
   }
 
   async getUser(id: string): Promise<User | undefined> {
-    const user = this._users.find((u) => u.id === id);
+    const user = this._users.find((u) => {return u.id === id;});
     return user;
   }
 
   async getUserByEmail(email: string): Promise<User | undefined> {
-    const user = this._users.find((u) => u.email === email);
+    const user = this._users.find((u) => {return u.email === email;});
     return user;
   }
 }

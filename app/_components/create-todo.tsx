@@ -49,5 +49,5 @@ export function CreateTodo() {
         {loading ? <Loader className="animate-spin" /> : <Plus />}
       </Button>
     </form>
-  )
+  );
 }

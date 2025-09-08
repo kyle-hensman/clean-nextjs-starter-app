@@ -4,25 +4,25 @@ import { ArchivedTodo } from '@/app/_components/archived-todos';
 function presenter(
   todos: ArchivedTodo[],
 ) {
-  return todos.map((todo) => ({
+  return todos.map((todo) => {return {
     id: todo.id,
     title: todo.title,
     todoId: todo.todoId,
     completed: todo.completed,
     archivedAt: todo.archivedAt,
-  }));
+  };});
 }
 
 export const getArchivedTodosForUserController =
   (
     getArchivedTodosForUserUseCase: IGetArchivedTodosForUserUseCase,
   ) =>
-  async (
+  {return async (
     userId: string,
   ): Promise<ReturnType<typeof presenter>> => {
     const todos = await getArchivedTodosForUserUseCase(userId);
 
     return presenter(todos ?? []);
-  };
+  };};
 
 export type IGetArchivedTodosForUserController = ReturnType<typeof getArchivedTodosForUserController>;

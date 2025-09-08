@@ -4,25 +4,25 @@ import { IGetTodosForUserUseCase } from '@/src/application/use-cases/todos/get-t
 function presenter(
   todos: Todo[],
 ) {
-  return todos.map((todo) => ({
+  return todos.map((todo) => {return {
     id: todo.id,
     title: todo.title,
     completed: todo.completed,
     archived: todo.archived,
     createdAt: todo.createdAt,
-  }));
+  };});
 }
 
 export const getTodosForUserController =
   (
     getTodosForUserUseCase: IGetTodosForUserUseCase,
   ) =>
-  async (
+  {return async (
     userId: string,
   ): Promise<ReturnType<typeof presenter>> => {
     const todos = await getTodosForUserUseCase(userId);
 
     return presenter(todos ?? []);
-  };
+  };};
 
 export type IGetTodosForUserController = ReturnType<typeof getTodosForUserController>;

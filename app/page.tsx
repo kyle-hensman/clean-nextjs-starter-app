@@ -1,9 +1,9 @@
-import Image from "next/image";
-import Link from "next/link";
-import { Facebook, Linkedin, Share2, Twitter } from "lucide-react";
+import Image from 'next/image';
+import Link from 'next/link';
+import { Facebook, Linkedin, Share2, Twitter } from 'lucide-react';
 
-import PageWrapper from "./_components/page-wrapper";
-import { Button } from "./_components/ui/button";
+import PageWrapper from './_components/page-wrapper';
+import { Button } from './_components/ui/button';
 
 export default function HomePage() {
   return (
@@ -14,7 +14,7 @@ export default function HomePage() {
           <div className="z-10 flex w-full items-center justify-start">
             <div className="flex items-center gap-2">
               <Image
-                src={`/logo.png`}
+                src={'/logo.png'}
                 width={30}
                 height={28}
                 alt="..."

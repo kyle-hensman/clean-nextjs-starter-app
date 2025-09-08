@@ -13,30 +13,30 @@ import { cn } from './utils';
 export type Todo = { id: string; title: string; completed: boolean, createdAt: Date };
 
 export function Todos({ todos }: { todos: Todo[] }) {
-  // const [bulkMode, setBulkMode] = useState<boolean>(false);
+  // Const [bulkMode, setBulkMode] = useState<boolean>(false);
   const [dirty, setDirty] = useState<string[]>([]);
   const [archived, setArchived] = useState<string[]>([]);
   const [deleted, setDeleted] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
-  // const handleToggle = useCallback(
-  //   async (id: string) => {
-  //     if (bulkMode) {
-  //       const dirtyIndex = dirty.findIndex((t) => t === id);
-  //       if (dirtyIndex > -1) {
-  //         const newDirty = Object.assign([], dirty);
-  //         newDirty.splice(dirtyIndex, 1);
-  //         setDirty(newDirty);
+  // Const handleToggle = useCallback(
+  //   Async (id: string) => {
+  //     If (bulkMode) {
+  //       Const dirtyIndex = dirty.findIndex((t) => t === id);
+  //       If (dirtyIndex > -1) {
+  //         Const newDirty = Object.assign([], dirty);
+  //         NewDirty.splice(dirtyIndex, 1);
+  //         SetDirty(newDirty);
   //       } else {
-  //         setDirty([...dirty, id]);
+  //         SetDirty([...dirty, id]);
   //       }
   //     } else {
-  //       const res = await toggleTodo(id);
-  //       if (res) {
-  //         if (res.error) {
-  //           toast.error(res.error);
+  //       Const res = await toggleTodo(id);
+  //       If (res) {
+  //         If (res.error) {
+  //           Toast.error(res.error);
   //         } else if (res.success) {
-  //           toast.success('Todo toggled!');
+  //           Toast.success('Todo toggled!');
   //         }
   //       }
   //     }
@@ -44,61 +44,61 @@ export function Todos({ todos }: { todos: Todo[] }) {
   //   [bulkMode, dirty]
   // );
 
-  // const markForDeletion = useCallback(
+  // Const markForDeletion = useCallback(
   //   (id: string) => {
-  //     const dirtyIndex = dirty.findIndex((t) => t === id);
-  //     if (dirtyIndex > -1) {
-  //       const newDirty = Object.assign([], dirty);
-  //       newDirty.splice(dirtyIndex, 1);
-  //       setDirty(newDirty);
+  //     Const dirtyIndex = dirty.findIndex((t) => t === id);
+  //     If (dirtyIndex > -1) {
+  //       Const newDirty = Object.assign([], dirty);
+  //       NewDirty.splice(dirtyIndex, 1);
+  //       SetDirty(newDirty);
   //     }
 
-  //     const deletedIndex = deleted.findIndex((t) => t === id);
-  //     if (deletedIndex === -1) {
-  //       setDeleted((d) => [...d, id]);
+  //     Const deletedIndex = deleted.findIndex((t) => t === id);
+  //     If (deletedIndex === -1) {
+  //       SetDeleted((d) => [...d, id]);
   //     } else {
-  //       const newDeleted = Object.assign([], deleted);
-  //       newDeleted.splice(deletedIndex, 1);
-  //       setDeleted(newDeleted);
+  //       Const newDeleted = Object.assign([], deleted);
+  //       NewDeleted.splice(deletedIndex, 1);
+  //       SetDeleted(newDeleted);
   //     }
   //   },
   //   [deleted, dirty]
   // );
 
-  // const markForArchive = useCallback(
+  // Const markForArchive = useCallback(
   //   (id: string) => {
-  //     const dirtyIndex = dirty.findIndex((t) => t === id);
-  //     if (dirtyIndex > -1) {
-  //       const newDirty = Object.assign([], dirty);
-  //       newDirty.splice(dirtyIndex, 1);
-  //       setDirty(newDirty);
+  //     Const dirtyIndex = dirty.findIndex((t) => t === id);
+  //     If (dirtyIndex > -1) {
+  //       Const newDirty = Object.assign([], dirty);
+  //       NewDirty.splice(dirtyIndex, 1);
+  //       SetDirty(newDirty);
   //     }
 
-  //     const archivedIndex = archived.findIndex((t) => t === id);
-  //     if (archivedIndex === -1) {
-  //       setArchived((d) => [...d, id]);
+  //     Const archivedIndex = archived.findIndex((t) => t === id);
+  //     If (archivedIndex === -1) {
+  //       SetArchived((d) => [...d, id]);
   //     } else {
-  //       const newArchived = Object.assign([], archived);
-  //       newArchived.splice(archivedIndex, 1);
-  //       setArchived(newArchived);
+  //       Const newArchived = Object.assign([], archived);
+  //       NewArchived.splice(archivedIndex, 1);
+  //       SetArchived(newArchived);
   //     }
   //   },
   //   [archived, dirty]
   // );
 
-  // const updateAll = async () => {
-  //   setLoading(true);
-  //   const res = await bulkUpdate(dirty, deleted, archived);
-  //   setLoading(false);
-  //   setBulkMode(false);
-  //   setDirty([]);
-  //   setDeleted([]);
-  //   setArchived([]);
-  //   if (res) {
-  //     if (res.error) {
-  //       toast.error(res.error);
+  // Const updateAll = async () => {
+  //   SetLoading(true);
+  //   Const res = await bulkUpdate(dirty, deleted, archived);
+  //   SetLoading(false);
+  //   SetBulkMode(false);
+  //   SetDirty([]);
+  //   SetDeleted([]);
+  //   SetArchived([]);
+  //   If (res) {
+  //     If (res.error) {
+  //       Toast.error(res.error);
   //     } else if (res.success) {
-  //       toast.success('Bulk update completed!');
+  //       Toast.success('Bulk update completed!');
   //     }
   //   }
   // };
@@ -130,7 +130,7 @@ export function Todos({ todos }: { todos: Todo[] }) {
           toast.success('Todo has been sent to trash!', {
             action: {
               label: 'Go to trash',
-              onClick: () => redirect('/dashboard?page=trash')
+              onClick: () => {return redirect('/dashboard?page=trash');}
             }
           });
         }
@@ -180,35 +180,35 @@ export function Todos({ todos }: { todos: Todo[] }) {
       )} */}
       <ul className='w-full'>
         {todos.length > 0 ? (
-          todos.map((todo, i) => (
+          todos.map((todo, i) => {return (
             <li
               key={`todo-item-${i + 1}`}
               className="h-10 flex items-center gap-2 w-full hover:bg-muted/50 active:bg-muted rounded-sm p-1"
             >
               <Checkbox
                 checked={
-                  dirty.findIndex((t) => t === todo.id) > -1
+                  dirty.findIndex((t) => {return t === todo.id;}) > -1
                     ? !todo.completed
                     : todo.completed
                 }
-                // onCheckedChange={() => handleToggle(todo.id)}
-                onCheckedChange={() => handleTodoToggle(todo.id)}
+                // OnCheckedChange={() => handleToggle(todo.id)}
+                onCheckedChange={() => {return handleTodoToggle(todo.id);}}
                 id={`checkbox-${todo.id}`}
                 disabled={
-                  deleted.findIndex((t) => t === todo.id) > -1 || loading
+                  deleted.findIndex((t) => {return t === todo.id;}) > -1 || loading
                 }
               />
               <label
                 htmlFor={`checkbox-${todo.id}`}
                 className={cn('flex-1 cursor-pointer', {
                   'text-muted-foreground line-through':
-                    dirty.findIndex((t) => t === todo.id) > -1
+                    dirty.findIndex((t) => {return t === todo.id;}) > -1
                       ? !todo.completed
                       : todo.completed,
                   'text-destructive line-through':
-                    deleted.findIndex((t) => t === todo.id) > -1,
+                    deleted.findIndex((t) => {return t === todo.id;}) > -1,
                 })}
-                // className={twMerge('flex-1 cursor-pointer')}
+                // ClassName={twMerge('flex-1 cursor-pointer')}
               >
                 {todo.title}
               </label>
@@ -219,8 +219,8 @@ export function Todos({ todos }: { todos: Todo[] }) {
                     variant="secondary"
                     className="p-3"
                     disabled={loading}
-                    // onClick={() => markForArchive(todo.id)}
-                    onClick={() => handleTodoArchive(todo.id)}
+                    // OnClick={() => markForArchive(todo.id)}
+                    onClick={() => {return handleTodoArchive(todo.id);}}
                   >
                     <Archive size={16} />
                   </Button>
@@ -229,15 +229,15 @@ export function Todos({ todos }: { todos: Todo[] }) {
                     variant="destructive"
                     className="p-3"
                     disabled={loading}
-                    // onClick={() => markForDeletion(todo.id)}
-                    onClick={() => handleTodoDelete(todo.id)}
+                    // OnClick={() => markForDeletion(todo.id)}
+                    onClick={() => {return handleTodoDelete(todo.id);}}
                   >
                     <Trash size={16} />
                   </Button>
                 </>
               {/* )} */}
             </li>
-          ))
+          );})
         ) : (
           <li className='flex justify-center items-center text-center min-h-[80px]'>
             <p className='text-muted-foreground italic'>No todos. Create some to get started!</p>
@@ -245,5 +245,5 @@ export function Todos({ todos }: { todos: Todo[] }) {
         )}
       </ul>
     </>
-  )
+  );
 }

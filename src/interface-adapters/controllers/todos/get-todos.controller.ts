@@ -4,24 +4,24 @@ import { IGetTodosUseCase } from '@/src/application/use-cases/todos/get-todos.us
 function presenter(
   todos: Todo[],
 ) {
-  return todos.map((todo) => ({
+  return todos.map((todo) => {return {
     id: todo.id,
     title: todo.title,
     completed: todo.completed,
     archived: todo.archived,
     createdAt: todo.createdAt,
-  }));
+  };});
 }
 
 export const getTodosController =
   (
     getTodosUseCase: IGetTodosUseCase,
   ) =>
-  async (
+  {return async (
   ): Promise<ReturnType<typeof presenter>> => {
     const todos = await getTodosUseCase();
 
     return presenter(todos ?? []);
-  };
+  };};
 
 export type IGetTodosController = ReturnType<typeof getTodosController>;

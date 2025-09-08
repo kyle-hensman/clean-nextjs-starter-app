@@ -4,7 +4,7 @@ export const getSessionController =
   (
     getSessionUseCase: IGetSessionUseCase
   ) =>
-  async (): Promise<{
+  {return async (): Promise<{
     session: {
       id: string;
       createdAt: Date;
@@ -27,6 +27,6 @@ export const getSessionController =
   } | null> => {
     const session = await getSessionUseCase();
     return session;
-  };
+  };};
 
 export type IGetSessionController = ReturnType<typeof getSessionController>;

@@ -13,7 +13,7 @@ export const signInController =
   (
     signInUseCase: ISignInUseCase
   ) =>
-  async (input: Partial<z.infer<typeof inputSchema>>): Promise<User> => {
+  {return async (input: Partial<z.infer<typeof inputSchema>>): Promise<User> => {
     const { data, error: inputParseError } = inputSchema.safeParse(input);
 
     if (inputParseError) {
@@ -22,6 +22,6 @@ export const signInController =
 
     const { user } = await signInUseCase(data);
     return user;
-  };
+  };};
 
 export type ISignInController = ReturnType<typeof signInController>;

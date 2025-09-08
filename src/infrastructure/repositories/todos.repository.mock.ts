@@ -21,7 +21,7 @@ export class MockTodosRepository implements ITodosRepository {
   }
 
   async getTodo(id: string): Promise<Todo | undefined> {
-    const todo = this._todos.find((t) => t.id === id);
+    const todo = this._todos.find((t) => {return t.id === id;});
     return todo;
   }
 
@@ -30,12 +30,12 @@ export class MockTodosRepository implements ITodosRepository {
   }
 
   async getTodosForUser(userId: string): Promise<Todo[]> {
-    const usersTodos = this._todos.filter((t) => t.userId === userId);
+    const usersTodos = this._todos.filter((t) => {return t.userId === userId;});
     return usersTodos;
   }
 
   async getDeletedTodosForUser(userId: string): Promise<Todo[]> {
-    const usersTodos = this._todos.filter((t) => t.userId === userId && t.deleted === true);
+    const usersTodos = this._todos.filter((t) => {return t.userId === userId && t.deleted === true;});
     return usersTodos;
   }
 
@@ -44,7 +44,7 @@ export class MockTodosRepository implements ITodosRepository {
   }
 
   async updateTodo(id: string, input: Partial<TodoInsert>): Promise<Todo> {
-    const existingIndex = this._todos.findIndex((t) => t.id === id);
+    const existingIndex = this._todos.findIndex((t) => {return t.id === id;});
     const updated = {
       ...this._todos[existingIndex],
       ...input,
@@ -54,7 +54,7 @@ export class MockTodosRepository implements ITodosRepository {
   }
 
   async deleteTodo(id: string): Promise<void> {
-    const existingIndex = this._todos.findIndex((t) => t.id === id);
+    const existingIndex = this._todos.findIndex((t) => {return t.id === id;});
     if (existingIndex > -1) {
       delete this._todos[existingIndex];
       this._todos = this._todos.filter(Boolean);
@@ -62,7 +62,7 @@ export class MockTodosRepository implements ITodosRepository {
   }
 
   async archiveTodo(id: string, metadata?: Record<string, unknown>): Promise<ArchivedTodo> {
-    const existingIndex = this._todos.findIndex((t) => t.id === id);
+    const existingIndex = this._todos.findIndex((t) => {return t.id === id;});
     const todo = this._todos[existingIndex];
     const updated = {
       ...todo,
@@ -76,21 +76,21 @@ export class MockTodosRepository implements ITodosRepository {
       completed: todo.completed,
       archivedAt: new Date(),
       metadata: metadata,
-    }
+    };
     this._todos[existingIndex] = updated;
     this._archivedTodos.push(archived);
     return archived;
   }
 
   async unarchiveTodo(id: string): Promise<Todo> {
-    const existingIndex = this._todos.findIndex((t) => t.id === id);
+    const existingIndex = this._todos.findIndex((t) => {return t.id === id;});
     const todo = this._todos[existingIndex];
     const updated = {
       ...todo,
       archived: false,
     };
     this._todos[existingIndex] = updated;
-    this._archivedTodos = this._archivedTodos.filter((t) => t.todoId !== id);
+    this._archivedTodos = this._archivedTodos.filter((t) => {return t.todoId !== id;});
     return updated;
   }
 }

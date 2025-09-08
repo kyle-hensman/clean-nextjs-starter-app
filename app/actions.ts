@@ -1,10 +1,10 @@
 'use server';
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath } from 'next/cache';
 
-import { getInjection } from "@/di/container";
-import { UnauthenticatedError } from "@/src/entities/errors/auth";
-import { InputParseError, NotFoundError } from "@/src/entities/errors/common";
+import { getInjection } from '@/di/container';
+import { UnauthenticatedError } from '@/src/entities/errors/auth';
+import { InputParseError, NotFoundError } from '@/src/entities/errors/common';
 
 export async function createTodo(formData: FormData) {
   try {
@@ -12,7 +12,7 @@ export async function createTodo(formData: FormData) {
     const auth = await getSessionController();
 
     if (!auth) {
-      return { error: 'Unauthorized' }
+      return { error: 'Unauthorized' };
     }
 
     const data = Object.fromEntries(formData.entries());

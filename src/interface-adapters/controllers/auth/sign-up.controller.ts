@@ -10,10 +10,10 @@ const inputSchema = z
     name: z.string().min(3).max(255),
     email: z.string().min(3).max(255),
     password: z.string().min(PASSWORD_MIN_LENGTH).max(255),
-    confirm_password: z.string().min(PASSWORD_MIN_LENGTH).max(255),
+    confirmPassword: z.string().min(PASSWORD_MIN_LENGTH).max(255),
   })
-  .superRefine(({ password, confirm_password }, ctx) => {
-    if (confirm_password !== password) {
+  .superRefine(({ password, confirmPassword }, ctx) => {
+    if (confirmPassword !== password) {
       ctx.addIssue({
         code: 'custom',
         message: 'The passwords did not match',
@@ -31,7 +31,7 @@ export const signUpController =
   (
     signUpUseCase: ISignUpUseCase
   ) =>
-  async (
+  {return async (
     input: Partial<z.infer<typeof inputSchema>>,
   ): Promise<User> => {
     const { data, error: inputParseError } = inputSchema.safeParse(input);
@@ -42,6 +42,6 @@ export const signUpController =
 
     const { user } = await signUpUseCase(data);
     return user;
-  };
+  };};
 
 export type ISignUpController = ReturnType<typeof signUpController>;

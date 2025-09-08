@@ -1,16 +1,16 @@
-import { redirect } from "next/navigation";
-import Link from "next/link";
+import { redirect } from 'next/navigation';
+import Link from 'next/link';
 
-import { getInjection } from "@/di/container";
-import PageWrapper from "../_components/page-wrapper";
-import { Card, CardContent, CardHeader, CardTitle } from "../_components/ui/card";
-import { Separator } from "../_components/ui/separator";
-import { CreateTodo } from "../_components/create-todo";
-import { Todos } from "../_components/todos";
-import { UserMenu } from "../_components/user-menu";
-import { ArchivedTodos } from "../_components/archived-todos";
-import { DeletedTodos } from "../_components/deleted-todos";
-import { cn } from "../_components/utils";
+import { getInjection } from '@/di/container';
+import PageWrapper from '../_components/page-wrapper';
+import { Card, CardContent, CardHeader, CardTitle } from '../_components/ui/card';
+import { Separator } from '../_components/ui/separator';
+import { CreateTodo } from '../_components/create-todo';
+import { Todos } from '../_components/todos';
+import { UserMenu } from '../_components/user-menu';
+import { ArchivedTodos } from '../_components/archived-todos';
+import { DeletedTodos } from '../_components/deleted-todos';
+import { cn } from '../_components/utils';
 
 async function getUserSession() {
   try {
@@ -28,7 +28,7 @@ async function getTodos(userId: string) {
     const getTodosForUserController = getInjection('IGetTodosForUserController');
     const todos = await getTodosForUserController(userId);
 
-    return todos.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+    return todos.sort((a, b) => {return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();});
   } catch (error) {
     console.error(error);
   }
@@ -39,7 +39,7 @@ async function getArchivedTodos(userId: string) {
     const getArchivedTodosForUserUserController = getInjection('IGetArchivedTodosForUserController');
     const todos = await getArchivedTodosForUserUserController(userId);
 
-    return todos.sort((a, b) => new Date(a.archivedAt).getTime() - new Date(b.archivedAt).getTime());
+    return todos.sort((a, b) => {return new Date(a.archivedAt).getTime() - new Date(b.archivedAt).getTime();});
   } catch (error) {
     console.error(error);
   }
@@ -50,7 +50,7 @@ async function getDeletedTodos(userId: string) {
     const getDeletedTodosForUserController = getInjection('IGetDeletedTodosForUserController');
     const todos = await getDeletedTodosForUserController(userId);
 
-    return todos.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+    return todos.sort((a, b) => {return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();});
   } catch (error) {
     console.error(error);
   }
@@ -70,7 +70,7 @@ export default async function DashboardPage({
   const archivedTodos = await getArchivedTodos(session.user.id) || [];
   const deletedTodos = await getDeletedTodos(session.user.id) || [];
   
-  const page = (await searchParams).page
+  const page = (await searchParams).page;
 
   return (
     <PageWrapper contained centered>

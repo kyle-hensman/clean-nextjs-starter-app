@@ -7,13 +7,13 @@ import { ISoftDeleteTodoUseCase } from '@/src/application/use-cases/todos/soft-d
 function presenter(
   todo: Todo,
 ) {
-  return () => ({
+  return () => {return {
     id: todo.id,
     todo: todo.title,
     completed: todo.completed,
     archived: todo.archived,
     createdAt: todo.createdAt,
-  });
+  };};
 }
 
 const inputSchema = z.object({ todoId: z.string() });
@@ -22,7 +22,7 @@ export const softDeleteTodoController =
   (
     softDeleteTodoUseCase: ISoftDeleteTodoUseCase
   ) =>
-  async (
+  {return async (
     input: Partial<z.infer<typeof inputSchema>>,
   ): Promise<ReturnType<typeof presenter>> => {
     const { data, error: inputParseError } = inputSchema.safeParse(input);
@@ -36,6 +36,6 @@ export const softDeleteTodoController =
     );
 
     return presenter(todo);
-  };
+  };};
 
 export type ISoftDeleteTodoController = ReturnType<typeof softDeleteTodoController>;

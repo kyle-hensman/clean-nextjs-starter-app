@@ -26,7 +26,7 @@ export class MockAuthenticationService implements IAuthenticationService {
       image: image || GENERATE_USER_IMAGE,
       createdAt: new Date(),
       updatedAt: new Date(),
-    }
+    };
 
     const mockSession: {
       id: string;
@@ -35,8 +35,8 @@ export class MockAuthenticationService implements IAuthenticationService {
     } = {
       id: uuid(),
       userId: user.id,
-      expiresAt: new Date(AUTH_SESSION_UPDATE_AGE * 1000), // converted to miliseconds
-    }
+      expiresAt: new Date(AUTH_SESSION_UPDATE_AGE * 1000), // Converted to miliseconds
+    };
     const session = sessionSchema.parse(mockSession);
 
     this._sessions[session.id] = { session, user };
@@ -56,7 +56,7 @@ export class MockAuthenticationService implements IAuthenticationService {
       image: GENERATE_USER_IMAGE,
       createdAt: new Date(),
       updatedAt: new Date(),
-    }
+    };
 
     const mockSession: {
       id: string;
@@ -65,8 +65,8 @@ export class MockAuthenticationService implements IAuthenticationService {
     } = {
       id: uuid(),
       userId: user.id,
-      expiresAt: new Date(AUTH_SESSION_UPDATE_AGE * 1000), // converted to miliseconds
-    }
+      expiresAt: new Date(AUTH_SESSION_UPDATE_AGE * 1000), // Converted to miliseconds
+    };
     const session = sessionSchema.parse(mockSession);
 
     this._sessions[session.id] = { session, user };

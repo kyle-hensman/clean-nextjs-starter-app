@@ -29,7 +29,7 @@ export default function SignupPage() {
     const formData = new FormData(event.currentTarget);
 
     const password = formData.get('password')!.toString();
-    const confirmPassword = formData.get('confirm_password')!.toString();
+    const confirmPassword = formData.get('confirmPassword')!.toString();
 
     if (password !== confirmPassword) {
       setError('Passwords must match');
@@ -86,7 +86,7 @@ export default function SignupPage() {
                 <Label htmlFor="confirm-password">Confirm Password</Label>
                 <Input
                   id="confirm-password"
-                  name="confirm_password"
+                  name="confirmPassword"
                   type="password"
                   required
                 />
