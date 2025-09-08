@@ -15,7 +15,7 @@ export function DeletedTodos({ todos }: { todos: DeletedTodo[] }) {
   const handleTodoDelete = useCallback(
     async (id: string) => {
       setLoading(true);
-      const res = await bulkUpdate([], [id], [], []);
+      const res = await deleteTodo(id);
       setLoading(false);
 
       if (res) {
@@ -46,6 +46,28 @@ export function DeletedTodos({ todos }: { todos: DeletedTodo[] }) {
     []
   );
 
+  const handleEmptyTrash = async () => {
+    setLoading(true);
+    let error;
+
+    for (const todo of todos) {
+      const res = await deleteTodo(todo.id);
+      if (res) {
+        if (res.error) {
+          error = res.error;
+        }
+      }
+    }
+
+    if (error) {
+      toast.error(error);
+    } else {
+      toast.success('Trash has been emptied!')
+    }
+
+    setLoading(false);
+  };
+
   return (
     <>
       {/* {bulkMode ? (
@@ -68,6 +90,7 @@ export function DeletedTodos({ todos }: { todos: DeletedTodo[] }) {
       ) : (
         <Button onClick={() => setBulkMode(true)}>Bulk operations</Button>
       )} */}
+      <Button onClick={() => handleEmptyTrash()}>Empty trash</Button>
       <ul className='w-full'>
         {todos.length > 0 ? (
           todos.map((todo, i) => (
@@ -99,7 +122,7 @@ export function DeletedTodos({ todos }: { todos: DeletedTodo[] }) {
                     className="p-3"
                     disabled={loading}
                     onClick={async () => {
-                      deleteTodo(todo.id);
+                      handleTodoDelete(todo.id);
                     }}
                   >
                     {loading ? <Loader size={16} /> : <Trash size={16} />}

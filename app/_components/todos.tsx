@@ -8,6 +8,8 @@ import { Checkbox } from './ui/checkbox';
 import { Button } from './ui/button';
 import { bulkUpdate, toggleTodo } from '../actions';
 import { cn } from './utils';
+import Link from 'next/link';
+import { redirect } from 'next/navigation';
 
 export type Todo = { id: string; title: string; completed: boolean, createdAt: Date };
 
@@ -126,7 +128,12 @@ export function Todos({ todos }: { todos: Todo[] }) {
         if (res.error) {
           toast.error(res.error);
         } else if (res.success) {
-          toast.success('Todo has been deleted!');
+          toast.success('Todo has been sent to trash!', {
+            action: {
+              label: 'Go to trash',
+              onClick: () => redirect('/dashboard?page=trash')
+            }
+          });
         }
       }
     },
