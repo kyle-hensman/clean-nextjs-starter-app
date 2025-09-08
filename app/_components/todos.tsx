@@ -3,13 +3,12 @@
 import React, { useCallback, useState } from 'react';
 import { Archive, Loader, Trash } from 'lucide-react';
 import { toast } from 'sonner';
+import { redirect } from 'next/navigation';
 
 import { Checkbox } from './ui/checkbox';
 import { Button } from './ui/button';
 import { bulkUpdate, toggleTodo } from '../actions';
 import { cn } from './utils';
-import Link from 'next/link';
-import { redirect } from 'next/navigation';
 
 export type Todo = { id: string; title: string; completed: boolean, createdAt: Date };
 
