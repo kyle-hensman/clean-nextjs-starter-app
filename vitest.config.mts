@@ -4,7 +4,12 @@ import tsconfigPaths from 'vite-tsconfig-paths';
  
 export default defineConfig({
   plugins: [tsconfigPaths(), react()],
-  test: {
+  test: { 
     environment: 'jsdom',
+    coverage: {
+      enabled: false,
+      reporter: ['html', 'text'],
+      reportsDirectory: './tests/reports'
+    },
   },
 });

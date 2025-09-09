@@ -1,6 +1,7 @@
 import { expect, test, suite } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import HomePage from './page';
+
+import HomePage from '@/app/page';
 
 suite('HomePage', () => {
   render(<HomePage />);
